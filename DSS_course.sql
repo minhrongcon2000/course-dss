@@ -5,7 +5,7 @@ CREATE TABLE Course(
 	Course_Id char primary key, 
     Course_Name char, 
     Credit int, 
-    Add_condition char null, 
+    Required_credit int null, 
     Prerequisite_id char null references Course(Course_Id)
     );
     
@@ -47,7 +47,7 @@ INSERT INTO Course VALUES ("EN012IU","Speaking AE2",2,NULL,"EN008IU");
 INSERT INTO Course VALUES ("PE012IU","Ho Chi Minh's Thoughts",2, NULL, NULL);
 INSERT INTO Course VALUES ("IT082IU","Internship",3, NULL, NULL);
 INSERT INTO Course VALUES ("IT145IU","Decision Support System",4, NULL, NULL);
-INSERT INTO Course VALUES ("IT083IU","Special Study of the Field",3,'Enough 90 credits', NULL);
+INSERT INTO Course VALUES ("IT083IU","Special Study of the Field",3,90, NULL);
 INSERT INTO Course VALUES ("IT143IU","Fundamentals of Big Data Technology",4, NULL, NULL);
 INSERT INTO Course VALUES ("PE013IU","Revolutionary Lines of Vietnamese Communist Party",3, NULL, NULL);
 INSERT INTO Course VALUES ("PE014IU","Environmental Science",3, NULL, NULL);
