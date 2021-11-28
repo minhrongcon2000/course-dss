@@ -1,12 +1,12 @@
+DROP DATABASE IF exists all_course;
 CREATE DATABASE all_course;
-CREATE DATABASE IF NOT exists all_course;
 USE all_course;
 CREATE TABLE Course(
-	Course_Id char primary key, 
-    Course_Name char, 
+	Course_Id VARCHAR(20) primary key, 
+    Course_Name VARCHAR(50), 
     Credit int, 
     Required_credit int null, 
-    Prerequisite_id char null references Course(Course_Id)
+    Prerequisite_id VARCHAR(20) null references Course(Course_Id)
     );
     
 INSERT INTO Course VALUES ('EN073IU','Listening & Speaking IE1', 11, NULL, NULL);
@@ -22,7 +22,7 @@ INSERT INTO Course VALUES ('MA001IU','Calculus 1', 4, NULL, NULL);
 INSERT INTO Course VALUES ('MA003IU','Calculus 2', 4,  NULL, 'MA001IU');
 INSERT INTO Course VALUES ('CH011IU','Chemistry for Engineers', 3, NULL, NULL);
 INSERT INTO Course VALUES ('IT013IU','Algorithms & Data Structures', 4, NULL, NULL);
-INSERT INTO Course VALUES ('PH014IU','Physics 2', 2, 'PH013IU', NULL, NULL);
+INSERT INTO Course VALUES ('PH014IU','Physics 2', 2, NULL, 'PH013IU');
 INSERT INTO Course VALUES ('CH012IU','Chemistry Laboratory', 1, NULL, NULL);
 INSERT INTO Course VALUES ('IT137IU','Data Analysis', 4, NULL, NULL);
 INSERT INTO Course VALUES ('IT069IU','Object-Oriented Programming', 4, NULL, NULL);
