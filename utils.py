@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Tuple, Union
 import networkx as nx
 import matplotlib.pyplot as plt
 import mysql.connector as connector
@@ -11,7 +11,6 @@ class Subject:
     subject_name: str
     subject_credit: int
     prerequisite_credit: Union[int, None] # mostly None, only thesis and prethesis will have this as not None
-    constraint_subject_id: str
     
 
 class MySQLSubjectData:
@@ -28,7 +27,7 @@ class MySQLSubjectData:
             database=database
         )
         
-    def get_data(self) -> List[Subject]:
+    def get_subject_data(self) -> List[Subject]:
         cursor = self.db.cursor()
         
         # This is a bad practice; however, since this project is small
@@ -40,15 +39,24 @@ class MySQLSubjectData:
         return [Subject(subject_id=subject_id,
                         subject_name=subject_name,
                         subject_credit=subject_credit,
-                        prerequisite_credit=prerequisite_credit,
-                        constraint_subject_id=constraint_subject_id) 
+                        prerequisite_credit=prerequisite_credit) 
                 for 
                     subject_id, 
                     subject_name, 
                     subject_credit, 
-                    prerequisite_credit, 
-                    constraint_subject_id 
+                    prerequisite_credit
                 in result]
+        
+    def get_prerequisite_data(self) -> List[Tuple]:
+        cursor = self.db.cursor()
+        
+        # This is a bad practice; however, since this project is small
+        # this doesn't matter
+        sql_statement = "SELECT * FROM Prerequisite;"
+        cursor.execute(sql_statement)
+        result = cursor.fetchall()
+        
+        return [(course_id, prerequisite_id) for course_id, prerequisite_id in result]
 
 
 class SubjectGraph:
@@ -69,12 +77,14 @@ class SubjectGraph:
         self.graph.add_edge(prerequisite_id, main_subject_id)
 
     def visualize(self):
+        plt.figure(figsize=(20, 5))
         nx.draw(self.graph, with_labels=True)
         plt.show()
         
     def load_from_mysql_database(self, host: str, user: str, password: str, database: str):
         dataloader = MySQLSubjectData(host=host, user=user, password=password, database=database)
-        subject_data = dataloader.get_data()
+        subject_data = dataloader.get_subject_data()
+        constraint_data = dataloader.get_prerequisite_data()
         
         for subject in subject_data:
             self.add_node(subject_id=subject.subject_id,
@@ -82,6 +92,5 @@ class SubjectGraph:
                           subject_credit=subject.subject_credit,
                           prerequisite_credit=subject.prerequisite_credit)
             
-            if subject.constraint_subject_id is not None:
-                self.make_constraint(prerequisite_id=subject.constraint_subject_id, main_subject_id=subject.subject_id)
-        
+        for course_id, prerequisite_id in constraint_data:
+            self.make_constraint(prerequisite_id, course_id)

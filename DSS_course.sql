@@ -1,15 +1,15 @@
+DROP DATABASE IF exists all_course;
 CREATE DATABASE all_course;
-CREATE DATABASE IF NOT exists all_course;
 USE all_course;
 CREATE TABLE Course(
-	Course_Id char primary key, 
-    Course_Name char, 
+	Course_Id VARCHAR(20) primary key, 
+    Course_Name VARCHAR(50), 
     Credit int, 
     Required_credit int null
     );
 CREATE TABLE Prerequisite(
-	Course_id char references Course(Course_Id),
-    Prerequisite_id char references Course(Course_Id)
+	Course_id VARCHAR(20) references Course(Course_Id),
+    Prerequisite_id VARCHAR(20) references Course(Course_Id)
 );
 
 INSERT INTO Course VALUES ('EN073IU','Listening & Speaking IE1', 11, NULL);
@@ -68,24 +68,54 @@ INSERT INTO Course VALUES ("IT120IU","Entrepreneurship",3, NULL);
 INSERT INTO Course VALUES ("IT094IU","Information System Management",4, NULL);
 INSERT INTO Course VALUES ("IT150IU","Blockchain",4, NULL);
 
+-- English constraint
 INSERT INTO Prerequisite VALUES ("EN075IU","EN073IU");
 INSERT INTO Prerequisite VALUES ("EN075IU","EN072IU");
 INSERT INTO Prerequisite VALUES ("EN074IU","EN073IU");
 INSERT INTO Prerequisite VALUES ("EN074IU","EN072IU");
-INSERT INTO Prerequisite VALUES ("MA003IU","MA001IU");
-INSERT INTO Prerequisite VALUES ("PH014IU","PH013IU");
-INSERT INTO Prerequisite VALUES ("IT090IU","IT069IU");
-INSERT INTO Prerequisite VALUES ("IT069IU","IT149IU");
-INSERT INTO Prerequisite VALUES ("MA023IU","MA001IU");
 INSERT INTO Prerequisite VALUES ("EN007IU","EN074IU");
 INSERT INTO Prerequisite VALUES ("EN007IU","EN075IU");
 INSERT INTO Prerequisite VALUES ("EN008IU","EN074IU");
 INSERT INTO Prerequisite VALUES ("EN008IU","EN075IU");
 INSERT INTO Prerequisite VALUES ("EN011IU","EN007IU");
-INSERT INTO Prerequisite VALUES ("IT147IU","IT069IU");
-INSERT INTO Prerequisite VALUES ("IT152IU","IT132IU");
+
+-- math constraint
+INSERT INTO Prerequisite VALUES ("MA003IU","MA001IU");
+INSERT INTO Prerequisite VALUES ("MA023IU","MA003IU");
+
+-- physics constraint
+INSERT INTO Prerequisite VALUES ("PH014IU","PH013IU");
+
+-- constrainted on C/C++
+INSERT INTO Prerequisite VALUES ("IT069IU","IT149IU");
 INSERT INTO Prerequisite VALUES ("IT142IU","IT149IU");
 INSERT INTO Prerequisite VALUES ("IT138IU","IT149IU");
+INSERT INTO Prerequisite VALUES ("IT079IU","IT149IU");
+
+-- constrainted on OOP
+INSERT INTO Prerequisite VALUES ("IT090IU","IT069IU");
+INSERT INTO Prerequisite VALUES ("IT147IU","IT069IU");
+INSERT INTO Prerequisite VALUES ("IT145IU","IT069IU");
+INSERT INTO Prerequisite VALUES ("IT132IU","IT069IU");
+INSERT INTO Prerequisite VALUES ("IT013IU","IT069IU");
+INSERT INTO Prerequisite VALUES ("IT097IU","IT069IU");
+INSERT INTO Prerequisite VALUES ("IT143IU","IT069IU");
+INSERT INTO Prerequisite VALUES ("IT056IU","IT069IU");
+
+-- constrainted on database
+INSERT INTO Prerequisite VALUES ("IT143IU","IT079IU");
+INSERT INTO Prerequisite VALUES ("IT094IU","IT079IU");
+
+-- constrainted on DSA
+INSERT INTO Prerequisite VALUES ("IT013IU","IT139IU");
+
+-- constrainted on DM
+INSERT INTO Prerequisite VALUES ("IT152IU","IT132IU");
+INSERT INTO Prerequisite VALUES ("IT143IU","IT132IU");
+
 INSERT INTO Prerequisite VALUES ("IT148IU","IT137IU");
 INSERT INTO Prerequisite VALUES ("IT148IU","IT136IU");
+INSERT INTO Prerequisite VALUES ("IT136IU","IT151IU");
+
+-- thesis
 INSERT INTO Prerequisite VALUES ("IT058IU","IT083IU");
