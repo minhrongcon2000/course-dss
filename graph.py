@@ -1,4 +1,4 @@
-from typing import Callable, Iterable, List, Set
+from typing import Iterable, List, Set
 import networkx as nx
 import matplotlib.pyplot as plt
 from networkx.algorithms.shortest_paths.unweighted import predecessor
@@ -99,18 +99,17 @@ class SubjectGraph:
                       map(lambda subject: self.graph.nodes[subject]["subject_credit"], 
                           studied_subjects))
     
-    def get_median_speed(self, progress: Iterable[Iterable[str]]) -> float:
-        sem_credits = list(map(self.get_total_credit, progress))
-        return np.median(sem_credits)
-    
     def flatten(self, progress: List[Set[str]]):
         return reduce(lambda a, b: a.union(b), progress)
     
     def suggest(self, 
-                progress: List[Set[str]], 
-                speed_aggregate_func: Callable[[Iterable[Iterable[str]]], float]):
+                progress: List[Set[str]],
+                level: int=1):
         studied_subject_set = self.flatten(progress)
-        aggregate_speed = speed_aggregate_func(progress)
+        mean_speed = np.mean(list(map(self.get_total_credit, progress)))
+        mean_num_subjects = np.mean(list(map(lambda item: len(item), progress)))
+        
+        performance_score = mean_speed / mean_num_subjects
         
         next_subjects = self.get_next_subject(studied_subject_set)
         
@@ -120,8 +119,15 @@ class SubjectGraph:
             combos = combinations(next_subjects, i)
             for combo in combos:
                 combo_credit = self.get_total_credit(combo)
+                combo_score = combo_credit / i
                 
-                if self.MIN_CREDIT <= combo_credit <= self.MAX_CREDIT:
-                    possible_combos.append((combo, abs(combo_credit - aggregate_speed)))
+                if "IT082IU" not in combo and self.MIN_CREDIT <= combo_credit <= self.MAX_CREDIT:
+                    possible_combos.append((combo, abs(combo_score - performance_score)))
                     
-        return possible_combos
+        scores = np.unique([item[1] for item in possible_combos])
+        scores = np.sort(scores)
+        
+        level_score = scores[level - 1]
+        max_level = len(scores)
+                    
+        return max_level, level_score, [item[0] for item in possible_combos if item[1] == level_score]

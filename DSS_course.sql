@@ -46,7 +46,6 @@ INSERT INTO Course VALUES ("IT142IU","Analytics for Observational Data",4, NULL)
 INSERT INTO Course VALUES ("PE008IU","Critical Thinking",3, NULL);
 INSERT INTO Course VALUES ("EN012IU","Speaking AE2",2,NULL);
 INSERT INTO Course VALUES ("PE012IU","Ho Chi Minh's Thoughts",2, NULL);
-INSERT INTO Course VALUES ("IT082IU","Internship",3, NULL);
 INSERT INTO Course VALUES ("IT145IU","Decision Support System",4, NULL);
 INSERT INTO Course VALUES ("IT083IU","Special Study of the Field",3,90);
 INSERT INTO Course VALUES ("IT143IU","Fundamentals of Big Data Technology",4, NULL);
@@ -61,6 +60,7 @@ INSERT INTO Course VALUES ("IT056IU","IT Project Management",4, NULL);
 INSERT INTO Course VALUES ("IT120IU","Entrepreneurship",3, NULL);
 INSERT INTO Course VALUES ("IT094IU","Information System Management",4, NULL);
 INSERT INTO Course VALUES ("IT150IU","Blockchain",4, NULL);
+INSERT INTO Course VALUES ("IT082IU","Internship",3, NULL);
 
 -- English constraint
 INSERT INTO Prerequisite VALUES ("EN075IU","EN073IU");
