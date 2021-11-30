@@ -6,7 +6,7 @@ CREATE TABLE Course(
     Course_Name VARCHAR(50), 
     Credit int, 
     Required_credit int null
-    );
+);
 CREATE TABLE Prerequisite(
 	Course_id VARCHAR(20) references Course(Course_Id),
     Prerequisite_id VARCHAR(20) references Course(Course_Id)
@@ -14,11 +14,9 @@ CREATE TABLE Prerequisite(
 
 INSERT INTO Course VALUES ('EN073IU','Listening & Speaking IE1', 11, NULL);
 INSERT INTO Course VALUES ('EN072IU','Reading & Writing IE1', 11, NULL);
-INSERT INTO Course VALUES ('PT001IU','Physical Training 1', 3, NULL);
 INSERT INTO Course VALUES ('PH013IU','Physics 1', 2, NULL);
 INSERT INTO Course VALUES ('EN075IU','Listening & Speaking IE2', 8, NULL);
 INSERT INTO Course VALUES ('EN074IU','Reading & Writing IE2', 8, NULL);
-INSERT INTO Course VALUES ('PT002IU','Physical Training 2', 3, NULL);
 INSERT INTO Course VALUES ('IT135IU','Introduction to Data Science', 3, NULL);
 INSERT INTO Course VALUES ('IT149IU','Fundamentals of Programming', 4, NULL);
 INSERT INTO Course VALUES ('MA001IU','Calculus 1', 4, NULL);
@@ -54,12 +52,8 @@ INSERT INTO Course VALUES ("IT083IU","Special Study of the Field",3,90);
 INSERT INTO Course VALUES ("IT143IU","Fundamentals of Big Data Technology",4, NULL);
 INSERT INTO Course VALUES ("PE013IU","Revolutionary Lines of Vietnamese Communist Party",3, NULL);
 INSERT INTO Course VALUES ("PE014IU","Environmental Science",3, NULL);
-INSERT INTO Course VALUES ("IT146IU","Theory of Networks",4, NULL);
-INSERT INTO Course VALUES ("IT144IU","Business Process Analysis",4, NULL);
-INSERT INTO Course VALUES ("IS021IU","Deterministic models in Operations Research",3, NULL);
 INSERT INTO Course VALUES ("IT147IU","Mobile Cloud Computing",4, NULL);
 INSERT INTO Course VALUES ("ISME105IU","Optimization",3, NULL);
-INSERT INTO Course VALUES ("IT141IU","Big Data Applications: Machine Learning at Scale",4, NULL);
 INSERT INTO Course VALUES ("IT148IU","Experimental Design",4, NULL);
 INSERT INTO Course VALUES ("IT058IU","Thesis",10, NULL);
 INSERT INTO Course VALUES ("IT152IU","Data Mining for IoT",4, NULL);
@@ -78,6 +72,7 @@ INSERT INTO Prerequisite VALUES ("EN007IU","EN075IU");
 INSERT INTO Prerequisite VALUES ("EN008IU","EN074IU");
 INSERT INTO Prerequisite VALUES ("EN008IU","EN075IU");
 INSERT INTO Prerequisite VALUES ("EN011IU","EN007IU");
+INSERT INTO Prerequisite VALUES ("EN011IU","EN008IU");
 
 -- math constraint
 INSERT INTO Prerequisite VALUES ("MA003IU","MA001IU");
@@ -107,7 +102,7 @@ INSERT INTO Prerequisite VALUES ("IT143IU","IT079IU");
 INSERT INTO Prerequisite VALUES ("IT094IU","IT079IU");
 
 -- constrainted on DSA
-INSERT INTO Prerequisite VALUES ("IT013IU","IT139IU");
+INSERT INTO Prerequisite VALUES ("IT139IU","IT013IU");
 
 -- constrainted on DM
 INSERT INTO Prerequisite VALUES ("IT152IU","IT132IU");
