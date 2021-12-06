@@ -1,12 +1,10 @@
 from typing import Iterable, List, Set
 import networkx as nx
 import matplotlib.pyplot as plt
-from networkx.algorithms.shortest_paths.unweighted import predecessor
 from data_loader import MySQLSubjectData
 import numpy as np
 from functools import reduce
 from itertools import combinations
-import copy
 
 
 class SubjectGraph:
@@ -87,7 +85,7 @@ class SubjectGraph:
                 subject_prev = set(self.graph.predecessors(subject_id))
                 subject_info = self.graph.nodes[subject_id]
                 
-                isNextSubject = len(subject_prev) == 0 and len(subject_next.intersection(enrich_studied_subjects)) == 0 and (subject_info["prerequisite_credit"] is None or total_credit > subject_info["prerequisite_credit"])
+                isNextSubject = len(subject_prev) == 0 and len(subject_next.intersection(enrich_studied_subjects)) == 0 and (subject_info["prerequisite_credit"] is None or total_credit >= subject_info["prerequisite_credit"])
                 
                 if isNextSubject:
                     next_subjects.add(subject_id)
@@ -122,7 +120,12 @@ class SubjectGraph:
                 combo_score = combo_credit / i
                 
                 if "IT082IU" not in combo and self.MIN_CREDIT <= combo_credit <= self.MAX_CREDIT:
-                    possible_combos.append((combo, abs(combo_score - performance_score)))
+                    combo_full_info = []
+                    for subject in combo:
+                        subject_info = {k:v for k, v in self.graph.nodes[subject].items() if k != "prerequisite_credit"}
+                        subject_info["subject_id"] = subject
+                        combo_full_info.append(subject_info)
+                    possible_combos.append((combo_full_info, abs(combo_score - performance_score)))
                     
         scores = np.unique([item[1] for item in possible_combos])
         scores = np.sort(scores)
