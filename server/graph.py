@@ -6,6 +6,8 @@ import numpy as np
 from functools import reduce
 from itertools import combinations
 
+from utils import ServerConfig
+
 
 class SubjectGraph:
     MIN_SUBJECT = 3
@@ -134,3 +136,9 @@ class SubjectGraph:
         max_level = len(scores)
                     
         return max_level, level_score, [item[0] for item in possible_combos if item[1] == level_score]
+    
+    def get_dependency_graph(self, subject_id):
+        chosen_nodes = self.get_all_previous_subject(subject_id).union({subject_id})
+        subgraph = self.graph.subgraph(list(chosen_nodes)).copy()
+        
+        return subgraph

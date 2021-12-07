@@ -38,3 +38,14 @@ def get_all_subjects():
         database=config.database
     )
     return loader.get_subject_data()
+
+@app.get("/subjects/previous")
+def get_previous_subject(subject_id: str):
+    subject_graph = SubjectGraph()
+    config = ServerConfig()
+    subject_graph.load_from_mysql_database(config.host, 
+                                       config.user, 
+                                       config.password, 
+                                       config.database)
+    dependency_graph = subject_graph.get_dependency_graph(subject_id)
+    return {"nodes": dependency_graph.nodes, "edges": list(dependency_graph.edges)}
