@@ -1,12 +1,9 @@
 from typing import Iterable, List, Set
 import networkx as nx
 import matplotlib.pyplot as plt
-from data_loader import MySQLSubjectData
 import numpy as np
 from functools import reduce
 from itertools import combinations
-
-from utils import ServerConfig
 
 
 class SubjectGraph:
@@ -34,20 +31,6 @@ class SubjectGraph:
         plt.figure(figsize=(20, 5))
         nx.draw(self.graph, with_labels=True)
         plt.show()
-        
-    def load_from_mysql_database(self, host: str, user: str, password: str, database: str):
-        dataloader = MySQLSubjectData(host=host, user=user, password=password, database=database)
-        subject_data = dataloader.get_subject_data()
-        constraint_data = dataloader.get_prerequisite_data()
-        
-        for subject in subject_data:
-            self.add_node(subject_id=subject.subject_id,
-                          subject_name=subject.subject_name,
-                          subject_credit=subject.subject_credit,
-                          prerequisite_credit=subject.prerequisite_credit)
-            
-        for course_id, prerequisite_id in constraint_data:
-            self.make_constraint(prerequisite_id, course_id)
             
     def get_all_previous_subject(self, subject_id: str) -> Set[str]:
         prev_subject = set()
