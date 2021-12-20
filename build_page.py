@@ -120,7 +120,7 @@ def build_presuggest_page():
             subject_name = dependency_graph.nodes[node_id]["subject_name"]
             subject_credit = dependency_graph.nodes[node_id]["subject_credit"]
             subject_required_credit = dependency_graph.nodes[node_id]["prerequisite_credit"]
-            subject_color = "red" if not dependency_graph.nodes[node_id]["is_available"] else "blue"
+            subject_color = "#ffcccc" if not dependency_graph.nodes[node_id]["is_available"] else "#00ffff"
             title = "{}:{}\n{}: {}\n{}: {}".format(
                 "Subject name",
                 subject_name,
@@ -152,44 +152,68 @@ def build_overview_page():
         such as probability and statistics and regression analysis. 
         As a result, this site is made to provide a good constraint 
         under the opinion of the author. Readers can also make a comparison 
-        and make a judgement for themselves. Detail on the flaw in curriculum design 
-        will be left for the readers to find out (because you are Data Scientists lol!). 
-        Besides, a decision support system is made within this project 
+        and make a judgement for themselves. Besides, a decision support system is made within this project 
         to help freshmen and sophomore choose their subjects wisely 
         in the context of incomplete course design like this.
         
-        To save time, the author leaves the visualization of two subject graphs: 
-        one is the university graph, and the other is author's graph.
+        To save time, the author leaves the visualization of two subject sub-graphs that illustrate 
+        the difference between the author's proposed graph and the department's one.
     """)
+    author_g = SubjectGraph()
+    author_g.load("data/IU/K21_Author", overview=True)
+    author_g.visualize("html_page/author_graph.html")
+
+    school_g = SubjectGraph()
+    school_g.load("data/IU/K21_School", overview=True)
+    school_g.visualize("html_page/school_graph.html")
     
     st.markdown("### Department subject graph")    
     html_file = open("html_page/school_graph.html")
     source_code = html_file.read()
-    components.html(source_code, height=600, width=600)
+    components.html(source_code, height=800, width=800)
     
     st.markdown("### Author subject graph")
     html_file = open("html_page/author_graph.html")
     source_code = html_file.read()
-    components.html(source_code, height=600, width=600)
+    components.html(source_code, height=800, width=800)
     
     st.markdown("Side note: In the author's graph, red nodes represent subjects that does not exist in the entire curriculum of Data Science.")
     
     st.markdown("""
         ## Author's remark
         
-        Please read this after you have gone through both graphs! 
-        If you have, you can continue. The flaw of the curriculum design lies between
-        statistic-related subjects' dependencies.\n\n
+        As can be seen, the main difference lies in the constraint of statistics-related courses.
+        The biggest flaw sadly lied in the subject constraint for freshmen. For some reason, the department
+        decides to constraint Regression Analysis on only Linear Algebra (which is only a small part of the picture).
+        I'm pretty sure that an apprentice would notice such an illogical arrangement right here. 
+        This is why this subject is reconstrainted on two subjects of IT (since it is more controlled by the department
+        and more approachable for IT/DS students).
         
-        In general, this curriculum has a lot of repetitive subjects with mostly the same knowledge 
-        (I do not offend the art of repetition; however, this makes the curriculum unnecessarily 
-        long and frustrated. If you love this way of learning, please take this with a grain of salt).\n\n 
+        In addition, Probability, Statistics & Random Process (PSR) is 
+        a required subject for Statistical Methods (SM) where these two subjects are completely the same 
+        with the only difference being that PSR has stochastic process 
+        (which makes PSR more specialized than SM, and thus, SM should be a required subject for PSR?).
+        As a result, I have arranged these two subjects into the same level.
         
-        In narrow view, A LOT OF dependencies have been setup in a wrong fashion. 
-        For example, the fact that Regression Analysis (IT136IU) 
-        does not require any statistics subject makes this entire curriculum
-        a mess from the start (which makes me suffer a lot!). 
-        You can also find some similar stupid constraints in the department's graph.
+        Another notable flaw is that heavy-math subject like Optimization is not constrainted on any math subjects 
+        (again, this caused an insane consequence within the first generation of DS students in IU).
+        As a result, this subject is actually constrainted on Calculus 2, Linear Algebra, and Algorithm and Data Structure
+        for the purpose of firm math and programming knowledge.
+        
+        Last but not least, there are two modules that rely on non-existence subjects
+        in the DS course list, which are Fundamental of Data Security (FCDS) and Scalable and Distributed Computing (SDC).
+        Both subjects depend heavily on computer network and operating system with FCDS
+        having an additional subject of discrete math. And Decision Support System is just merely
+        a course of web programming with theory being casual talk on AI.
+        
+        The remaining differences are minor, including additional constraints on Data Analysis,
+        Analytics of Observational Data, Blockchain, and Big Data.
+        
+        Overall, the department dependency graph is inefficient for course registration
+        and caused a lot of loss in knowledge gain alongside academic journey.
+        
+        This is why this project is made to help freshmen and sophomore register their courses more efficient
+        and refrain from mistakes that the author has made.
         
         ## "What should I learn next" recommendation
         _Disclaimer_: This part will be full of technical stuff. It's for those who want 

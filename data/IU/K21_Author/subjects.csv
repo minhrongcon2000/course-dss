@@ -1,46 +1,46 @@
-id,name,credit,required_credit,is_available
-IT135IU,Introduction to Data Science,3,0,True
-PH013IU,Physics 1,2,0,True
-PE015IU,Philosophy of Marxism and Leninism,3,0,True
-MA001IU,Calculus 1,4,0,True
-IT149IU,Fundamentals of Programming,4,0,True
-EN008IU,Listening AE1,2,0,True
-EN007IU,Writing AE1,2,0,True
-PH014IU,Physics 2,2,0,True
-MA003IU,Calculus 2,4,0,True
-IT154IU,Linear Algebra,3,0,True
-IT069IU,Object-Oriented Programming,4,0,True
-EN012IU,Speaking AE2,2,0,True
-EN011IU,Writing AE2,2,0,True
-PE016IU,Political economics of Marxism and Leninism,2,0,True
-PE014IU,Environmental Science,3,0,True
-MA026IU,Probability Statistic & Random Process,3,0,True
-IT137IU,Data Analysis,4,0,True
-IT136IU,Regression Analysis,4,0,True
-CH012IU,Chemistry Laboratory,1,0,True
-CH011IU,Chemistry for Engineer,3,0,True
-PE017IU,Scientific Socialism,2,0,True
-IT079IU,Principles of Database Management,4,0,True
-IT013IU,Algorithms and Data Structure,4,0,True
-IT138IU,Data Science and Data Visualization,4,0,True
-IT140IU,Fundamental Concepts of Data Security,4,0,True
-PE018IU,History of Vietnamese Communist Party,2,0,True
-PE008IU,Critical Thinking,3,0,True
-IT151IU,Statistical Method,4,0,True
-IT139IU,Scalable and Distributed Computing,4,0,True
-CN,Computer Networks,4,0,False
-OS,Operating System,4,0,False
-PE019IU,Ho Chi Minh's Thought,2,0,True
-IT097IU,Introduction to Artificial Intelligent,4,0,True
-IT132IU,Introduction to Data Mining,4,0,True
-IT142IU,Analytics for Observational Data,4,0,True
-IT083IU,Special Study of the Field,3,90,True
-IT143IU,Introduction to Big Data Technology,4,0,True
-IT058IU,Thesis,10,114,True
-IT155IU,Optimization,4,0,True
-IT150IU,Blockchain,4,0,True
-IT145IU,Decision Support System,4,0,True
-IT056IU,Software Project Management,4,0,True
-WAD,Web App Development,4,0,False
-IT120IU,Entrepreneurship,3,0,True
-DM,Discrete Mathematics,3,0,False
+id,name,credit,required_credit,is_available,is_shown
+IT135IU,Introduction to Data Science,3,0,True,False
+PH013IU,Physics 1,2,0,True,False
+PE015IU,Philosophy of Marxism and Leninism,3,0,True,False
+MA001IU,Calculus 1,4,0,True,False
+IT149IU,Fundamentals of Programming,4,0,True,True
+EN008IU,Listening AE1,2,0,True,False
+EN007IU,Writing AE1,2,0,True,False
+PH014IU,Physics 2,2,0,True,False
+MA003IU,Calculus 2,4,0,True,True
+IT154IU,Linear Algebra,3,0,True,True
+IT069IU,Object-Oriented Programming,4,0,True,True
+EN012IU,Speaking AE2,2,0,True,False
+EN011IU,Writing AE2,2,0,True,False
+PE016IU,Political economics of Marxism and Leninism,2,0,True,False
+PE014IU,Environmental Science,3,0,True,False
+MA026IU,Probability Statistic & Random Process,3,0,True,True
+IT137IU,Data Analysis,4,0,True,True
+IT136IU,Regression Analysis,4,0,True,True
+CH012IU,Chemistry Laboratory,1,0,True,False
+CH011IU,Chemistry for Engineer,3,0,True,False
+PE017IU,Scientific Socialism,2,0,True,False
+IT079IU,Principles of Database Management,4,0,True,True
+IT013IU,Algorithms and Data Structure,4,0,True,True
+IT138IU,Data Science and Data Visualization,4,0,True,False
+IT140IU,Fundamental Concepts of Data Security,4,0,True,True
+PE018IU,History of Vietnamese Communist Party,2,0,True,False
+PE008IU,Critical Thinking,3,0,True,False
+IT151IU,Statistical Method,4,0,True,True
+IT139IU,Scalable and Distributed Computing,4,0,True,True
+CN,Computer Networks,4,0,False,True
+OS,Operating System,4,0,False,True
+PE019IU,Ho Chi Minh's Thought,2,0,True,False
+IT097IU,Introduction to Artificial Intelligent,4,0,True,True
+IT132IU,Introduction to Data Mining,4,0,True,True
+IT142IU,Analytics for Observational Data,4,0,True,True
+IT083IU,Special Study of the Field,3,90,True,False
+IT143IU,Introduction to Big Data Technology,4,0,True,True
+IT058IU,Thesis,10,114,True,False
+IT155IU,Optimization,4,0,True,True
+IT150IU,Blockchain,4,0,True,True
+IT145IU,Decision Support System,4,0,True,True
+IT056IU,Software Project Management,4,0,True,False
+WAD,Web App Development,4,0,False,True
+IT120IU,Entrepreneurship,3,0,True,False
+DM,Discrete Mathematics,3,0,False,True

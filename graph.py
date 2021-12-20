@@ -18,14 +18,18 @@ class SubjectGraph:
     MAX_CREDIT = 24
     def __init__(self) -> None:
         self.graph = nx.DiGraph()
-        self.vis_graph = Network(height="550px", width="550px", directed=True)
+        self.vis_graph = Network(height="700px", width="700px", directed=True)
+        # self.vis_graph.barnes_hut()
+        # self.vis_graph.force_atlas_2based()
+        self.vis_graph.hrepulsion()
 
     def add_node(self,
                  subject_id: str,
                  subject_name: str,
                  subject_credit: int,
                  is_available: bool,
-                 prerequisite_credit: int) -> None:
+                 prerequisite_credit: int,
+                 is_shown: bool=True) -> None:
         title = "{}:{}\n{}:{}\n{}:{}".format(
             "Subject name", 
             subject_name, 
@@ -39,14 +43,16 @@ class SubjectGraph:
                             subject_credit=subject_credit,
                             prerequisite_credit=prerequisite_credit,
                             is_available=is_available)
-        self.vis_graph.add_node(subject_id, 
+        if is_shown:
+            self.vis_graph.add_node(subject_id, 
                                 label=subject_name,
                                 title=title,
-                                color="red" if not is_available else "blue")
+                                color="#ffcccc" if not is_available else "#71f5f3",
+                                hidden=not is_shown)
 
     def make_constraint(self, prerequisite_id: str, main_subject_id: str):
         self.graph.add_edge(prerequisite_id, main_subject_id)
-        self.vis_graph.add_edge(prerequisite_id, main_subject_id, physics=False)
+        self.vis_graph.add_edge(prerequisite_id, main_subject_id, physics=False, color="#000000")
             
     def get_all_previous_subject(self, subject_id: str) -> Set[str]:
         prev_subject = set()
@@ -190,34 +196,39 @@ class SubjectGraph:
         subject_data.to_csv(os.path.join(save_dir, "subjects.csv"), index=False)
         dependency_data.to_csv(os.path.join(save_dir, "dependency.csv"), index=False)
         
-    def _load_node_data(self, subject_data: DataFrame):
+    def _load_node_data(self, subject_data: DataFrame, overview: bool):
         for i in range(len(subject_data)):
             subject_id = subject_data.loc[i, "id"]
             subject_name = subject_data.loc[i, "name"]
             subject_credit = subject_data.loc[i, "credit"]
             subject_required_credit = subject_data.loc[i, "required_credit"]
             subject_available = subject_data.loc[i, "is_available"]
+            subject_visible = subject_data.loc[i, "is_shown"]
             
             self.add_node(
                 subject_id=subject_id,
                 subject_name=subject_name,
                 subject_credit=subject_credit,
                 is_available=subject_available,
-                prerequisite_credit=subject_required_credit
+                prerequisite_credit=subject_required_credit,
+                is_shown=subject_visible if overview else True
             )
             
-    def _load_dependency_data(self, dependency_data: DataFrame):
+    def _load_dependency_data(self, dependency_data: DataFrame, shown_data: DataFrame, overview: bool):
         for i in range(len(dependency_data)):
             source = dependency_data.loc[i, "source"]
             target = dependency_data.loc[i, "target"]
-            self.make_constraint(source, target)
+            if not overview or (overview and shown_data.loc[source, "is_shown"] and shown_data.loc[target, "is_shown"]):
+                self.make_constraint(source, target)
         
-    def load(self, save_dir):
+    def load(self, save_dir, overview=False):
         subject_data = pd.read_csv(os.path.join(save_dir, "subjects.csv"))
         dependency_data = pd.read_csv(os.path.join(save_dir, "dependency.csv"))
         
-        self._load_node_data(subject_data)
-        self._load_dependency_data(dependency_data)
+        self._load_node_data(subject_data, overview=overview)
+        self._load_dependency_data(dependency_data, 
+                                   subject_data.loc[:, ["id", "is_shown"]].set_index("id"),
+                                   overview=overview)
         
     def visualize(self, save_dir="html/subject_graph.html"):
         self.vis_graph.show(save_dir)
