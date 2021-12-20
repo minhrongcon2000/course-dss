@@ -1,14 +1,24 @@
 import streamlit as st
 
-from build_page import build_presuggest_page, build_suggestion_page
+from build_page import build_overview_page, build_presuggest_page, build_suggestion_page
 import hydralit_components as hc
 
+
 st.set_page_config(layout='wide',initial_sidebar_state='collapsed')
-# build_presuggest_page()
 
 menu_data = [
-    {'id':'suggestion', 'label':"What should I learn next?"},
-    {'id':'presuggestion', 'label':"What should I learn before?"}
+    {
+        "id": "overview",
+        "label": "Overview"
+    },
+    {
+        'id':'suggestion', 
+        'label':"What should I learn next?"
+    },
+    {
+        'id':'presuggestion', 
+        'label':"What should I learn before?"
+    }
     
 ]
 
@@ -20,6 +30,9 @@ menu_id = hc.nav_bar(
     sticky_nav=True, #at the top or not
     sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
 )
+
+if menu_id == "overview":
+    build_overview_page()
 
 if menu_id == "suggestion":
     build_suggestion_page()
