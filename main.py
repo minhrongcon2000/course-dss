@@ -4,7 +4,7 @@ from build_page import build_overview_page, build_presuggest_page, build_suggest
 import hydralit_components as hc
 
 
-st.set_page_config(layout='wide',initial_sidebar_state='collapsed')
+# st.set_page_config(layout='wide')
 
 menu_data = [
     {

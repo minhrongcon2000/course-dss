@@ -18,7 +18,7 @@ class SubjectGraph:
     MAX_CREDIT = 24
     def __init__(self) -> None:
         self.graph = nx.DiGraph()
-        self.vis_graph = Network(height="550px", width="1000px", directed=True)
+        self.vis_graph = Network(height="550px", width="550px", directed=True)
 
     def add_node(self,
                  subject_id: str,

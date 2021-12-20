@@ -12,7 +12,7 @@
 <style type="text/css">
 
         #mynetwork {
-            width: 1000px;
+            width: 550px;
             height: 550px;
             background-color: #ffffff;
             border: 1px solid lightgray;
@@ -50,8 +50,8 @@
         
 
         // parsing and collecting nodes and edges from the python
-        nodes = new vis.DataSet([{"color": "red", "id": "OS", "label": "Operating System", "shape": "dot", "title": "Subject name:Operating System\nCredit: 4\nRequired credit: 0"}, {"color": "blue", "id": "IT069IU", "label": "Object-Oriented Programming", "shape": "dot", "title": "Subject name:Object-Oriented Programming\nCredit: 4\nRequired credit: 0"}, {"color": "red", "id": "CN", "label": "Computer Networks", "shape": "dot", "title": "Subject name:Computer Networks\nCredit: 4\nRequired credit: 0"}, {"color": "blue", "id": "IT013IU", "label": "Algorithms and Data Structure", "shape": "dot", "title": "Subject name:Algorithms and Data Structure\nCredit: 4\nRequired credit: 0"}, {"color": "blue", "id": "IT139IU", "label": "Scalable and Distributed Computing", "shape": "dot", "title": "Subject name:Scalable and Distributed Computing\nCredit: 4\nRequired credit: 0"}, {"color": "blue", "id": "IT149IU", "label": "Fundamentals of Programming", "shape": "dot", "title": "Subject name:Fundamentals of Programming\nCredit: 4\nRequired credit: 0"}]);
-        edges = new vis.DataSet([{"arrows": "to", "from": "OS", "physics": false, "to": "IT139IU"}, {"arrows": "to", "from": "IT069IU", "physics": false, "to": "IT013IU"}, {"arrows": "to", "from": "CN", "physics": false, "to": "IT139IU"}, {"arrows": "to", "from": "IT013IU", "physics": false, "to": "IT139IU"}, {"arrows": "to", "from": "IT149IU", "physics": false, "to": "IT069IU"}]);
+        nodes = new vis.DataSet([{"color": "blue", "id": "PE015IU", "label": "Philosophy of Marxism and Leninism", "shape": "dot", "title": "Subject name:Philosophy of Marxism and Leninism\nCredit: 3\nRequired credit: 0"}, {"color": "blue", "id": "PE016IU", "label": "Political economics of Marxism and Leninism", "shape": "dot", "title": "Subject name:Political economics of Marxism and Leninism\nCredit: 2\nRequired credit: 0"}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "PE015IU", "physics": false, "to": "PE016IU"}]);
 
         // adding nodes and edges to the graph
         data = {nodes: nodes, edges: edges};

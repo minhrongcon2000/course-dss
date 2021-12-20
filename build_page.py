@@ -113,7 +113,7 @@ def build_presuggest_page():
         subject_id = chosen_subject.split("-")[0].strip()
         dependency_graph = author_g.get_dependency_graph(subject_id)
         
-        net = Network(width="1000px", height="550px", directed=True)
+        net = Network(width="550px", height="550px", directed=True)
         
         for node_id in dependency_graph.nodes:
             subject_id = node_id
@@ -165,12 +165,12 @@ def build_overview_page():
     st.markdown("### Department subject graph")    
     html_file = open("html_page/school_graph.html")
     source_code = html_file.read()
-    components.html(source_code, height=600, width=1000)
+    components.html(source_code, height=600, width=600)
     
     st.markdown("### Author subject graph")
     html_file = open("html_page/author_graph.html")
     source_code = html_file.read()
-    components.html(source_code, height=600, width=1000)
+    components.html(source_code, height=600, width=600)
     
     st.markdown("Side note: In the author's graph, red nodes represent subjects that does not exist in the entire curriculum of Data Science.")
     
@@ -223,7 +223,7 @@ def build_overview_page():
         by the set of given point. Hence, collection of subject that is "close" to a student's performance
         would lie within the polygon. 
     """)
-    st.image(Image.open("img/polygon.png"), width=500, caption="For example, in this figure, point D, E, F will have lower total distance than point I, H, G")
+    st.image(Image.open("img/polygon.png"), caption="For example, in this figure, point D, E, F will have lower total distance than point I, H, G")
     st.markdown("That's the intuition behind my algorithm. The transcript will form an area of suggestion such that most relevant subject to suggest to a student will lie within it.")
     st.markdown("""
         ## "What should I learn before" recommendation
